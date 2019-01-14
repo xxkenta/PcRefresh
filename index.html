@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="checkRefresh">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Is it time to replace my PC?</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script><!-- load angular -->
+    <script src="static/core.js"></script>
+</head>
+
+<body ng-controller="mainController">
+    <div ng-controller="mainController" class="container">
+        <h1 class="text-center">Is it time to replace this PC?</h1>
+        <div ng-switch on="refreshInfo.isRefresh">
+            <div ng-switch-when="true" class="jumbotron text-center" style="background-color:#47C143">
+                <h1 style="margin:0; padding:0;">Your PC is ready to be replaced!</h1>
+            </div>
+            <div ng-switch-when="false" class="jumbotron text-center" style="background-color:#D02525">
+                <h1 style="margin:0; padding:0;">Your PC will be up for replacement after {{refreshInfo.expDate}}.</h1>
+            </div>
+            <div ng-switch-default class="jumbotron text-center">
+                <h1 style="margin:0; padding0;">Enter a service tag below.</h1>
+            </div>
+        </div>
+        <div ng-show="refreshInfo.isRefresh" class="text-center">
+            <p>Click <a href="http://myhelpdesk/mytickets/new">here</a> to submit a request to replace the machine. Please include the service tag.</p>
+        </div>
+
+        <div class="col-sm-4 col-sm-offset-4 text-center">
+            <h2>This is for PC: {{refreshInfo.computerName}}</h2>
+        </div>
+        <div id="serviceTagLookup" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg text-center" placeholder="Service Tag" ng-model="formData.serviceTag">
+                    </div>
+                    <div ng-if="refreshInfo.status == 'Does not exist'" class="text-center">
+                        <p style="color:red">That service tag is invalid. Please try again.</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="checkServiceTag()">Check</button>
+                </form>
+            </div>
+        </div>
+        <div class="row text-center" style="padding:20px">
+            <p>For any other questions please contact the helpdesk at x24357 or <a href="mailto:helpdesk@mckee.com">send an email</a>.</p>
+        </div>
+    </div>
+</body>
+</html>
