@@ -3,6 +3,7 @@ const router = express.Router();
 const { chopsPoolPromise } = require('../../db/chopsConfig');
 const compName = require('../../javascript/getComputerName');
 const os = require('os');
+const fs = require('fs');
 
 router.get('/assignedDate', async(req,res,next) =>{
     var computerName = os.hostname();
@@ -30,6 +31,20 @@ router.get('/assignedDate', async(req,res,next) =>{
 });
 
 router.post('/serviceTagLookup', async(req,res,next) =>{
+    let count = 0;
+    console.log(count)
+    fs.readFile('./count.txt', function read(err, data){
+        if (err) {
+            throw err;
+        }
+        count = data;
+        count++;
+        console.log(count);
+        fs.writeFile('./count.txt', count, (err) => {
+            if (err) throw err;
+        });
+    });
+
     console.log("Hello");
     console.log(req.body.serviceTag);
     var result = await compName.getAssignedDate(req.body.serviceTag);
