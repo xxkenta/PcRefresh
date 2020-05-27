@@ -3,10 +3,10 @@ var sql = require("mssql");
 
 //Initializing connection string
 var connection = {
-    user: 'chopsbackend',
-    password: 'access2chops',
-    server: 'tnsql8',
-    database: 'CHOPS'
+    user: x,
+    password: x,
+    server: x,
+    database: x
 };
 
 const chopsPoolPromise = new sql.ConnectionPool(connection)
